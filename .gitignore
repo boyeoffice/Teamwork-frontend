@@ -10,7 +10,10 @@
 
 # production
 /build
-/dist
+/dist/*.js
+/dist/css
+/dist/js
+/dist/mix-manifest.json
 
 # misc
 .DS_Store
