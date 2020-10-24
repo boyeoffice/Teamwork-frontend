@@ -1,9 +1,11 @@
 // const webpack = require('webpack');
 const mix = require('laravel-mix')
 
+mix.setPublicPath('dist')
+
 mix.disableSuccessNotifications()
 mix.js('src/app.js', 'dist/js')
-    // .js('src/lib/vendor.js', 'dist/js')
+    .js('lib/vendor.js', 'dist/js')
 // .sass('resources/sass/app.scss', 'public/css');
     .styles([
         'node_modules/admin-lte/plugins/fontawesome-free/css/all.css',
@@ -15,8 +17,9 @@ mix.js('src/app.js', 'dist/js')
         'node_modules/admin-lte/plugins/toastr/toastr.css',
         'node_modules/vue-date-pick/dist/vueDatePick.css'
     ], 'dist/css/vendor.css')
+mix.copyDirectory('node_modules/admin-lte/plugins/fontawesome-free/webfonts', 'dist/webfonts')
 
-// mix.browserSync('t40-backoffice.test')
+// mix.browserSync('teamwork.test')
 mix.webpackConfig({
     module: {
         rules: [
