@@ -14,6 +14,12 @@ const routes = [
         path: '/login',
         component: () => import('../views/Auth/Login'),
         name: 'Login'
+    },
+    {
+        path: '/employee',
+        component: () => import('../views/Employee/Employee'),
+        name: 'Employee',
+        meta: { onlyAuthUser: true }
     }
 ]
 

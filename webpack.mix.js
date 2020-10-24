@@ -5,7 +5,7 @@ mix.setPublicPath('dist')
 
 mix.disableSuccessNotifications()
 mix.js('src/app.js', 'dist/js')
-    // .js('src/lib/vendor.js', 'dist/js')
+    .js('lib/vendor.js', 'dist/js')
 // .sass('resources/sass/app.scss', 'public/css');
     .styles([
         'node_modules/admin-lte/plugins/fontawesome-free/css/all.css',
@@ -19,7 +19,7 @@ mix.js('src/app.js', 'dist/js')
     ], 'dist/css/vendor.css')
 mix.copyDirectory('node_modules/admin-lte/plugins/fontawesome-free/webfonts', 'dist/webfonts')
 
-mix.browserSync('teamwork.test')
+// mix.browserSync('teamwork.test')
 mix.webpackConfig({
     module: {
         rules: [

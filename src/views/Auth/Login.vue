@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-box">
-      <div class="login-logo"><a><b>T40</b></a></div>
+      <div class="login-logo"><a><b>Team Work</b></a></div>
       <div class="card">
         <div class="card-body login-login-body">
           <p class="login-box-msg">Sign in to start your session</p>
@@ -10,7 +10,7 @@
             <div class="input-group mb-3"><input type="password" placeholder="Password" class="form-control" v-model="form.password"> <div class="input-group-append"><div class="input-group-text"><span class="fas fa-lock"></span></div></div> <!----></div>
             <div class="social-auth-links text-center mb-3">
                 <button v-if="isButton" type="submit" :disabled="!formValid" class="btn btn-block btn-danger">
-                Login
+                    Login
                 </button>
                 <button v-else :disabled="disabled" class="btn btn-danger btn-block">Login</button>
             </div>
@@ -23,10 +23,19 @@
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import { reactive, computed } from '@vue/composition-api'
-import router from '../../router'
+import baseService from '../../services/api'
+
+const loginUser = (payload) => {
+    return new Promise((resolve, reject) => {
+        baseService.post('/auth/login', payload).then((res) => {
+            resolve(res)
+        }).catch((err) => reject(err))
+    })
+}
 export default {
-    setup (_, context) {
+    setup (_, { root }) {
         const form = reactive({
             email: '',
             password: ''
@@ -38,9 +47,13 @@ export default {
             })
         })
         function login () {
-            // console.log(form.email)
             isButton = false
-            router.push('/')
+            loginUser(form).then((res) => {
+                root.$router.push('/')
+            }).catch((err) => {
+                isButton = true
+                toastr.warning(err.response.data.message)
+            })
         }
         return {
             form,
@@ -50,6 +63,7 @@ export default {
         }
     }
 }
+
 </script>
 
 <style>
